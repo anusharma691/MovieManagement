@@ -1,0 +1,116 @@
+TABLES:
+
+
+create table movie_info(movie_id varchar(10) not null primary key, movie_name varchar(20), actor varchar(20));
+insert into movie_info values('m01' , 'Taken 2' , 'Liam Neeson');
+insert into movie_info values('m02' , 'Argo' , 'Ben Affleck');
+insert into movie_info values('m03' , 'Sinister' , 'Ethan Hawke');
+insert into movie_info values('m04' , 'Hotel Transylvania' , 'Adam sandler');
+insert into movie_info values('m05', 'Here Comes The Boom' , 'Kevin James');
+insert into movie_info values('m06' , 'Pitch Perfect' , 'Anna Kendrick');
+insert into movie_info values('m07' , 'Frankinweenie' , 'Winona Ryder');
+insert into movie_info values('m08' , 'Looper' , 'Bruce Willis');
+insert into movie_info values('m09' , 'Seven Psycopaths' , 'Colin Farrell');
+insert into movie_info values('m10' , 'The Flat' , 'Arnon goldfinger');
+
+
+create table cinema(cinema_id varchar(10) not null primary key, cinema_name varchar(20), address_street varchar(20), address_city varchar(20), address_state varchar(20));
+insert into cinema values('c01' , 'Cinemark' , 'Buffalo Rd' , 'Rochester' , 'NY');
+insert into cinema values('c02' , 'Regal' , 'Greece C. Dr.' , 'Rochester' , 'NY');
+insert into cinema values('c03' , 'Pittsford' , 'Monroe Av.' , 'Rochester' , 'NY');
+insert into cinema values('c04' , 'AMC Loews' , 'EmpireBlvd' , 'Webster' , 'NY');
+insert into cinema values('c05' , 'Geneseo Sq' , 'LakeVille' , 'Geneseo' , 'NY');
+insert into cinema values('c06' , 'Dipson' , 'Alva PL W' , 'Batavia' , 'NY');
+
+create table person(ssn int not null primary key, person_name varchar(50), email varchar(50));
+insert into person values(702345123 , 'Matt' , 'matt@gmail.com');
+insert into person values(712098223 , 'Ted' , 'ted@gmail.com');
+insert into person values(802345123 , 'Zach' , 'zach@yahoo.com');
+insert into person values(709345322 , 'Alice' , 'alice@gmail.com');
+insert into person values(202798023 , 'Neil' , 'neil@hotmail.com');
+insert into person values(400305429 , 'Ben' , 'ben@yahoo.com');
+insert into person values(511309234 , 'Nancy' , 'ben@yahoo.com');
+insert into person values(623054129 , 'Sarah' , 'sarah@hotmail.com');
+insert into person values(900305142 , 'Alex' , 'alex@gmail.com');
+insert into person values(309125699 , 'Marshal' , 'marshal@yahoo.com');
+insert into person values(673421091 , 'Vicky' , 'vicky@yahoo.com');
+insert into person values(791236227 , 'Bonnie' , 'bonnie@hotmail.com');
+insert into person values(681418456 , 'Stephan' , 'Stephan@gmail.com');
+insert into person values(809112364 , 'Max' , 'max@yahoo.com');
+insert into person values(367097267 , 'Jenny' , 'Jenny@yahoo.com');
+insert into person values(564092114 , 'Peter' , 'Peter@gmail.com');
+insert into person values(845224987 , 'Elizabeth' , 'beth@yahoo.com');
+insert into person values(376779498 , 'Josh' , 'josh@hotmail.com');
+insert into person values(476329454 , 'Cobie' , 'cobie@yahoo.com');
+insert into person values(642114934 , 'Kevin' , 'kevin@yahoo.com');
+insert into person values(409162889 , 'Nick' , 'nick@yahoo.com');
+
+create table users(username varchar(20) not null primary key, ssn int not null,  password varchar(20) ,foreign key(ssn) references person(ssn) on delete cascade);
+insert into users values('Vicky22' ,673421091 ,  'abcvicky');
+insert into users values('Bonnie190' ,791236227 ,  'bonjour');
+insert into users values('Stephan32' ,681418456 ,  'steph');
+insert into users values('Max29' ,809112364 ,  'maxx123');
+insert into users values('Jenny11' ,367097267 ,  'xyzabc1');
+insert into users values('Peter999' ,564092114 ,  'petty');
+insert into users values('Elizabeth213' ,845224987 ,  'bethy89');
+insert into users values('Josh67' ,376779498 ,  'qwerty');
+insert into users values('Cobie09' ,476329454 ,  'c12obie');
+insert into users values('Kevin397' ,642114934 ,  'kev793');
+insert into users values('Nick72' ,409162889 ,  'nickkie');
+
+create table administrator(adminname varchar(20) not null primary key, ssn int not null ,password varchar(20), foreign key(ssn) references person(ssn) on delete cascade);
+insert into administrator values ('Matt',702345123, 'abcd123');
+insert into administrator values ('Ted',712098223, 'defg456');
+
+create table employee(emp_id varchar(10) not null primary key, ssn int not null, salary int, foreign key(ssn) references person(ssn) on delete cascade);
+insert into employee values ('e01',802345123, 5500);
+insert into employee values ('e02',709345322, 4000);
+insert into employee values ('e03',202798023, 5000);
+insert into employee values ('e04',400305429, 3500);
+insert into employee values ('e05',511309234, 4500);
+insert into employee values ('e06',702345123, 10000);
+insert into employee values ('e07',712098223, 10000);
+insert into employee values ('e08',623054129, 4500);
+insert into employee values ('e09',900305142, 4500);
+insert into employee values ('e10',309125699, 4500);
+
+
+
+create table shows(show_id varchar(10) not null primary key, movie_id varchar(10) not null, cinema_id varchar(10) not null, screen int, seats int, show_date date, show_time time, price int, foreign key(movie_id ) references movie_info(movie_id) on delete cascade, foreign key(cinema_id) references cinema(cinema_id) on delete cascade);
+insert into shows values('s01' , 'm01' , 'c01', 1 , 50, '2012-11-10' , '10:15:00', 12);
+insert into shows values('s02' , 'm02' , 'c01', 2 , 40, '2012-11-11' , '10:45:00', 20);
+insert into shows values('s03' , 'm03' , 'c01', 1 , 50, '2012-11-12' , '13:00:00', 14);
+insert into shows values('s04' , 'm04' , 'c03', 1 , 60, '2012-11-12' , '16:05:00', 20);
+insert into shows values('s05' , 'm05' , 'c04', 2 , 50, '2012-11-15' , '12:10:00', 8);
+insert into shows values('s06' , 'm06' , 'c04', 1 , 40, '2012-11-12' , '15:30:00', 15);
+insert into shows values('s07' , 'm07' , 'c06', 1 , 60, '2012-11-13' , '19:15:00', 10);
+insert into shows values('s08' , 'm08' , 'c05', 3 , 50, '2012-11-13' , '20:00:00', 6);
+insert into shows values('s09' , 'm09' , 'c01', 2 , 50, '2012-11-14' , '20:30:00', 12);
+insert into shows values('s10' , 'm10' , 'c06', 3 , 60, '2012-11-11' , '14:00:00', 10);
+insert into shows values('s11' , 'm01' , 'c01', 3 , 40, '2012-11-15' , '21:00:00', 10);
+insert into shows values('s12' , 'm02' , 'c06', 1 , 40, '2012-11-10' , '20:10:00', 12);
+insert into shows values('s13' , 'm03' , 'c01', 4 , 50, '2012-11-14' , '21:45:00', 10);
+insert into shows values('s14' , 'm03' , 'c04', 2 , 50, '2012-11-11' , '13:15:00', 10);
+insert into shows values('s15' , 'm05' , 'c05', 1 , 40, '2012-11-10' , '14:20:00', 14);
+insert into shows values('s16' , 'm06' , 'c05', 1 , 60, '2012-11-13' , '17:00:00', 10);
+insert into shows values('s17' , 'm07' , 'c03', 2 , 55, '2012-11-12' , '18:10:00', 18);
+insert into shows values('s18' , 'm08' , 'c04', 1 , 50, '2012-11-11' , '18:15:00', 10);
+insert into shows values('s19' , 'm09' , 'c03', 2 , 60, '2012-11-10' , '16:30:00', 12);
+insert into shows values('s20' , 'm10' , 'c06', 1 , 60, '2012-11-15' , '22:00:00', 10);
+insert into shows values('s21' , 'm10' , 'c06', 1 , 60, '2012-11-15' , '22:00:00', 8);
+
+
+
+
+VIEWS:
+
+create view show_view as (select m.movie_name ,m.actor, c.cinema_name , c.address_street , c.address_city, c.address_state, s.show_date, s.show_time,  s.seats ,s.screen, s.show_id from movie_info as m , cinema as c , shows as s where m.movie_id = s.movie_id and s.cinema_id = c.cinema_id); 
+
+
+
+
+
+
+
+
+
